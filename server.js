@@ -10,7 +10,7 @@ const  ethers  = require("ethers");
 // import { ethers } from "ethers";
 
 
-const provider = new ethers.JsonRpcProvider('https://eth-sepolia.g.alchemy.com/v2/cIP70Q4bVNMcB-XDUp2k7griYEbmW7li');
+const provider = new ethers.providers.JsonRpcProvider('https://eth-sepolia.g.alchemy.com/v2/cIP70Q4bVNMcB-XDUp2k7griYEbmW7li');
 // let currentProvider = new web3.providers.HttpProvider('https://eth-sepolia.g.alchemy.com/v2/cIP70Q4bVNMcB-XDUp2k7griYEbmW7li');
 
 // let provider = new ethers.providers.Web3Provider(currentProvider);
