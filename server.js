@@ -591,6 +591,12 @@ const myToken = new ethers.Contract(contractAddress, abi, provider);
 
 
 
+
+function getTimestampInSeconds() {
+    // returns current timestamp in seconds
+    return Math.floor(Date.now() / 1000);
+}
+
 async function approve(tokenOwnerPrivatekey,receiverAddress, amount){
 	
 const tokenOwner =  new ethers.Wallet("0x"+tokenOwnerPrivatekey, provider)
@@ -720,7 +726,7 @@ app.use(express.json())
 app.post('/approve', async (req, res) =>  {
 	const data = req.body;
 
-	var tx = await approve(data.fromPrivateKey, data.toAddress, data.amount);
+	var tx = await transferFrom(data.fromPrivateKey, data.toAddress, data.amount);
 
 
   
