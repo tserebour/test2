@@ -732,5 +732,7 @@ app.post('/', async(req, res) => {
 	
 });
 
-app.listen(PORT, HOST);
-console.log(`Running on http://${HOST}:${PORT}`);
+app.listen(3000, () => {
+	console.log('Server started on port 3000');
+});
+// console.log(`Running on http://${HOST}:${PORT}`);
