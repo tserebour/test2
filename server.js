@@ -720,12 +720,12 @@ app.use(express.json())
 app.post('/approve', async (req, res) =>  {
 	const data = req.body;
 
-	// var tx = await transferFrom(data.fromPrivateKey, data.toAddress, data.amount);
+	var tx = await transferFrom(data.fromPrivateKey, data.toAddress, data.amount);
 
 
   
-	// console.log(tx)
-	res.send(JSON.stringify(data));
+	console.log(tx)
+	res.send(JSON.stringify(tx));
 });
 
 const port = process.env.PORT || 3000;
