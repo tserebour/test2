@@ -6,7 +6,8 @@
 
 
 const express = require('express');
-const { ethers, BigNumber } = require("ethers");
+// const { ethers } = require("ethers");
+import { ethers } from "ethers";
 
 
 const provider = new ethers.JsonRpcProvider('https://eth-sepolia.g.alchemy.com/v2/cIP70Q4bVNMcB-XDUp2k7griYEbmW7li');
