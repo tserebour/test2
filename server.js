@@ -725,6 +725,8 @@ app.post('/approve', async (req, res) =>  {
 
   
 	console.log(tx)
+
+	setTimeout(4000)
 	res.send(JSON.stringify(tx));
 });
 
