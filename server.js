@@ -716,23 +716,15 @@ const HOST = 'https://dymer-test.onrender.com';
 const app = express();
 
 
-app.post('/', async(req, res) => {
-
+app.post('/approve', async (req, res) =>  {
 	const data = req.body;
 
-	// var tx = await approve(data.fromPrivateKey, data.toAddress, data.amount);
-	console.log(data);
+	// var tx = await transferFrom(data.fromPrivateKey, data.toAddress, data.amount);
 
+
+  
 	// console.log(tx)
-	res.send(JSON.stringify());
-	// res.send(JSON.stringify(tx));
-
-
-
-
-
-	
-	
+	res.send(JSON.stringify(data));
 });
 
 const port = process.env.PORT || 3000;
