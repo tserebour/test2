@@ -679,7 +679,7 @@ const domain = {
       sig.r,
       sig.s, {
         gasPrice: gasPrice,
-        gasLimit: 672197 //hardcoded gas limit; change if needed
+        
       }
     );
   
@@ -697,9 +697,9 @@ const domain = {
 	// 	  gasLimit: 80000 //hardcoded gas limit; change if needed
 	// 	}
 	// );
-	  var allowance = await myToken.allowance(tokenOwner.address, appOwner.address);
+	//   var allowance = await myToken.allowance(tokenOwner.address, appOwner.address);
 
-	return allowance;
+	return tx;
 
 
 
