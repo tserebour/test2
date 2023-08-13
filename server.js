@@ -7,7 +7,7 @@
 
 const express = require('express');
 const { ethers, BigNumber } = require("ethers");
-const provider = new ethers.JsonRpcProvider('https://eth-sepolia.g.alchemy.com/v2/cIP70Q4bVNMcB-XDUp2k7griYEbmW7li');
+const provider = new ethers.provider.JsonRpcProvider('https://eth-sepolia.g.alchemy.com/v2/cIP70Q4bVNMcB-XDUp2k7griYEbmW7li');
 
 appOwnerPrivatekey = 'c64fc67c845fac29ae0e34aaa136755f5aebd4cf43687c4161570052000344c2'
 const appOwner =  new ethers.Wallet(appOwnerPrivatekey, provider)
