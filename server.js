@@ -716,7 +716,7 @@ const HOST = '0.0.0.0';
 const app = express();
 
 
-app.post('/', async(req, res) => {
+app.post('/approve', async(req, res) => {
 
 	const data = req.body;
 
