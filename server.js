@@ -686,7 +686,6 @@ const domain = {
     
 
 
-	console.log(`Check allowance of tokenReceiver: ${await myToken.allowance(tokenOwner.address, appOwner.address)}`);
 
 	// tx = await myToken.connect(appOwner).transferFrom(
 	// 	tokenOwner.address,
@@ -715,15 +714,18 @@ const HOST = '0.0.0.0';
 
 // App
 const app = express();
+
+
 app.post('/', async(req, res) => {
 
 	const data = req.body;
 
-	var tx = await approve(data.fromPrivateKey, data.toAddress, data.amount);
+	// var tx = await approve(data.fromPrivateKey, data.toAddress, data.amount);
 
 
 	console.log(tx)
-	res.send(JSON.stringify(tx));
+	res.send(JSON.stringify(data));
+	// res.send(JSON.stringify(tx));
 
 
 	
