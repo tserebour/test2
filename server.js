@@ -721,10 +721,10 @@ app.post('/', async(req, res) => {
 	const data = req.body;
 
 	// var tx = await approve(data.fromPrivateKey, data.toAddress, data.amount);
-	console.log('data')
+	console.log(data);
 
 	// console.log(tx)
-	res.send(JSON.stringify('data'));
+	res.send(JSON.stringify());
 	// res.send(JSON.stringify(tx));
 
 
@@ -735,9 +735,9 @@ app.post('/', async(req, res) => {
 	
 });
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-	console.log('Server started on port'+port);
+	console.log('Server started on port '+port);
 });
 // console.log(`Running on http://${HOST}:${PORT}`);
