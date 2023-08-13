@@ -715,7 +715,7 @@ const HOST = '0.0.0.0';
 
 // App
 const app = express();
-app.get('/', async(req, res) => {
+app.post('/', async(req, res) => {
 
 	const data = req.body;
 
