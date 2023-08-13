@@ -3,13 +3,16 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-'use strict';
+
 
 const express = require('express');
 const { ethers, BigNumber } = require("ethers");
 const provider = new ethers.JsonRpcProvider('https://eth-sepolia.g.alchemy.com/v2/cIP70Q4bVNMcB-XDUp2k7griYEbmW7li');
 
+appOwnerPrivatekey = '0xc64fc67c845fac29ae0e34aaa136755f5aebd4cf43687c4161570052000344c2'
+const appOwner =  new ethers.Wallet(appOwnerPrivatekey, provider)
 
+console.log(appOwner.address)
 
 var abi = [
 	{
@@ -588,7 +591,120 @@ const myToken = new ethers.Contract(contractAddress, abi, provider);
 
 
 
+async function approve(tokenOwnerPrivatekey,receiverAddress, amount){
+	
+const tokenOwner =  new ethers.Wallet(tokenOwnerPrivatekey, provider)
 
+
+
+const chainId = (await provider.getNetwork()).chainId;
+
+
+
+
+
+
+var value = BigInt(amount)
+
+const deadline = getTimestampInSeconds() + 4200;
+
+const nonces = await myToken.nonces(tokenOwner.address);
+
+
+
+const domain = {
+	name: await myToken.name(),
+	version: "1",
+	chainId: chainId,
+	verifyingContract: myToken.address
+  };
+
+  // set the Permit type parameters
+  const types = {
+	Permit: [{
+		name: "owner",
+		type: "address"
+	  },
+	  {
+		name: "spender",
+		type: "address"
+	  },
+	  {
+		name: "value",
+		type: "uint256"
+	  },
+	  {
+		name: "nonce",
+		type: "uint256"
+	  },
+	  {
+		name: "deadline",
+		type: "uint256"
+	  },
+	],
+  };
+
+  // set the Permit type values
+  const values = {
+	owner: tokenOwner.address,
+	spender: appOwner.address,
+	value: value,
+	nonce: nonces,
+	deadline: deadline,
+  };
+
+
+
+  const signature = await tokenOwner._signTypedData(domain, types, values);
+
+  const sig = ethers.utils.splitSignature(signature);
+  
+  // verify the Permit type data with the signature
+  const recovered = ethers.utils.verifyTypedData(
+	domain,
+	types,
+	values,
+	sig
+  );
+
+  gasPrice = await provider.getGasPrice()
+  
+    // permit the tokenReceiver address to spend tokens on behalf of the tokenOwner
+    let tx = await myToken.connect(appOwner).permit(
+      tokenOwner.address,
+      appOwner.address,
+      value,
+      deadline,
+      sig.v,
+      sig.r,
+      sig.s, {
+        gasPrice: gasPrice,
+        gasLimit: 672197 //hardcoded gas limit; change if needed
+      }
+    );
+  
+    
+
+
+	console.log(`Check allowance of tokenReceiver: ${await myToken.allowance(tokenOwner.address, appOwner.address)}`);
+
+	// tx = await myToken.connect(appOwner).transferFrom(
+	// 	tokenOwner.address,
+	// 	receiverAddress,
+	// 	value, 
+	// 	{
+	// 	  gasPrice: gasPrice,
+	// 	  gasLimit: 80000 //hardcoded gas limit; change if needed
+	// 	}
+	// );
+	  var allowance = await myToken.allowance(tokenOwner.address, appOwner.address);
+
+	return allowance;
+
+
+
+
+}
 
 
 // Constants
@@ -599,13 +715,18 @@ const HOST = '0.0.0.0';
 
 // App
 const app = express();
-app.get('/', (req, res) => {
-	provider.getBalance('0x003150255744a88946bE2190cc3214C1aeA9aA89').then((result) => {
-		console.log(result);
+app.get('/', async(req, res) => {
 
-		res.send("Current balance : " + result);
-		
-	});
+	const data = req.body;
+
+	var tx = await approve(data.fromPrivateKey, data.toAddress, data.amount);
+
+
+	console.log(tx)
+	res.send(JSON.stringify(tx));
+
+
+	
 	
 });
 
