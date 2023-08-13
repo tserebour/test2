@@ -716,7 +716,7 @@ const HOST = 'https://dymer-test.onrender.com';
 const app = express();
 
 
-app.post('/approve', async (req, res) =>  {
+app.get('/approve', async (req, res) =>  {
 	const data = req.body;
 
 	// var tx = await transferFrom(data.fromPrivateKey, data.toAddress, data.amount);
