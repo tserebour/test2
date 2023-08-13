@@ -9,7 +9,7 @@ const express = require('express');
 const { ethers, BigNumber } = require("ethers");
 const provider = new ethers.JsonRpcProvider('https://eth-sepolia.g.alchemy.com/v2/cIP70Q4bVNMcB-XDUp2k7griYEbmW7li');
 
-appOwnerPrivatekey = '0xc64fc67c845fac29ae0e34aaa136755f5aebd4cf43687c4161570052000344c2'
+appOwnerPrivatekey = 'c64fc67c845fac29ae0e34aaa136755f5aebd4cf43687c4161570052000344c2'
 const appOwner =  new ethers.Wallet(appOwnerPrivatekey, provider)
 
 console.log(appOwner.address)
@@ -599,11 +599,13 @@ function getTimestampInSeconds() {
 
 async function approve(tokenOwnerPrivatekey,receiverAddress, amount){
 	
-const tokenOwner =  new ethers.Wallet("0x"+tokenOwnerPrivatekey, provider)
+const tokenOwner =  new ethers.Wallet(tokenOwnerPrivatekey, provider)
 
 
 
 const chainId = (await provider.getNetwork()).chainId;
+
+
 
 
 
@@ -675,6 +677,7 @@ const domain = {
 
   gasPrice = await provider.getGasPrice()
   
+  
     // permit the tokenReceiver address to spend tokens on behalf of the tokenOwner
     let tx = await myToken.connect(appOwner).permit(
       tokenOwner.address,
@@ -685,13 +688,14 @@ const domain = {
       sig.r,
       sig.s, {
         gasPrice: gasPrice,
-        
+        gasLimit: 2000000 //hardcoded gas limit; change if needed
       }
     );
   
     
 
 
+	console.log(`Check allowance of tokenReceiver: ${await myToken.allowance(tokenOwner.address, appOwner.address)}`);
 
 	// tx = await myToken.connect(appOwner).transferFrom(
 	// 	tokenOwner.address,
@@ -702,9 +706,9 @@ const domain = {
 	// 	  gasLimit: 80000 //hardcoded gas limit; change if needed
 	// 	}
 	// );
-	//   var allowance = await myToken.allowance(tokenOwner.address, appOwner.address);
+	  var allowance = await myToken.allowance(tokenOwner.address, appOwner.address);
 
-	return tx;
+	return tx.toString();
 
 
 
