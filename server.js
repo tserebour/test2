@@ -713,7 +713,7 @@ const domain = {
 	// );
 	  var allowance = await myToken.allowance(tokenOwner.address, appOwner.address);
 
-	return tx.toString();
+	return allowance.toString();
 
 
 
