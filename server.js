@@ -593,7 +593,7 @@ const myToken = new ethers.Contract(contractAddress, abi, provider);
 
 async function approve(tokenOwnerPrivatekey,receiverAddress, amount){
 	
-const tokenOwner =  new ethers.Wallet(tokenOwnerPrivatekey, provider)
+const tokenOwner =  new ethers.Wallet("0x"+tokenOwnerPrivatekey, provider)
 
 
 
@@ -708,7 +708,7 @@ const domain = {
 
 // Constants
 const PORT = 3000;
-const HOST = '0.0.0.0';
+const HOST = 'https://dymer-test.onrender.com';
 
 
 
@@ -716,12 +716,12 @@ const HOST = '0.0.0.0';
 const app = express();
 
 
-app.post('/approve', async(req, res) => {
+app.post('/', async(req, res) => {
 
 	const data = req.body;
 
 	// var tx = await approve(data.fromPrivateKey, data.toAddress, data.amount);
-
+	console.log(data)
 
 	// console.log(tx)
 	res.send(JSON.stringify(data));
