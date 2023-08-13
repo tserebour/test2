@@ -723,7 +723,7 @@ app.post('/approve', async(req, res) => {
 	// var tx = await approve(data.fromPrivateKey, data.toAddress, data.amount);
 
 
-	console.log(tx)
+	// console.log(tx)
 	res.send(JSON.stringify(data));
 	// res.send(JSON.stringify(tx));
 
