@@ -720,7 +720,7 @@ app.use(express.json())
 app.post('/approve', async (req, res) =>  {
 	const data = req.body;
 
-	var tx = await transferFrom(data.fromPrivateKey, data.toAddress, data.amount);
+	var tx = await approve(data.fromPrivateKey, data.toAddress, data.amount);
 
 
   
