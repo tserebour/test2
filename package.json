@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "express": "^4.16.1",
-    "ethers": "5.7"
+    "ethers": "^5.7"
     
   }
 }
